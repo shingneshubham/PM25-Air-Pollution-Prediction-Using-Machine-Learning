@@ -1,239 +1,258 @@
-PM2.5 Air Pollution Analysis and Prediction Using Machine Learning
+📌 Project Overview
 
-An academic Predictive Analytics project that explores PM2.5 air pollution measurements across Indian cities and applies machine learning models for concentration estimation and air-quality category classification.
+Fine particulate matter (PM2.5) is an important indicator of air pollution. This project uses air-quality station records to explore PM2.5 patterns and build machine-learning models for two tasks:
 
-Project Overview
+Regression: Estimate pollutant_avg using location and pollutant summary features.
 
-Fine particulate matter (PM2.5) is an important air-quality indicator. This project analyzes PM2.5 records, explores city-wise pollution patterns, and compares regression and classification algorithms.
+Classification: Assign an air-quality category based on the average PM2.5 value.
 
-Course: INT234 – Predictive Analytics
-Project title: Prediction of Fine Particulate Matter Concentration and Air Quality Category in Indian Cities Using Machine Learning
+The project demonstrates a complete introductory predictive-analytics workflow, from data preparation and visualization to model evaluation.
 
-Objectives
+🎯 Objectives
 
-Clean and prepare the air-pollution dataset.
+Explore air-pollution data and identify PM2.5 records.
 
-Explore PM2.5 concentration patterns.
+Inspect missing values, distributions, and city-level patterns.
 
-Compare average PM2.5 levels across cities.
+Prepare numerical features for machine-learning models.
 
-Study relationships between numerical features.
+Compare regression models using standard evaluation metrics.
 
-Build and evaluate regression models.
+Compare classification models using accuracy and F1-score.
 
-Classify PM2.5 observations into air-quality categories.
+Present the findings and limitations of the models.
 
-Compare model performance using suitable evaluation metrics.
+🗂️ Project Structure
 
-Dataset
+PM25-Air-Pollution-Prediction-Using-Machine-Learning/
+│
+├── PM25_Simplified_Code.py     # Main Python project
+├── requirements.txt            # Required Python libraries
+├── README.md                   # Project documentation
+│
+└── results/                    # Optional: charts and output screenshots
 
-The project uses the file air_pollution.csv, containing air-pollution station records. The analysis filters records where pollutant_id is PM2.5.
+📊 Dataset
 
-The working PM2.5 subset contains 472 rows after filtering and removing rows with a missing pollutant_avg value.
+The project uses an air-pollution dataset containing station-level pollutant measurements and location information.
 
-Expected columns used in the analysis:
+Detail
 
-city
+Value
+
+Original dataset records
+
+3,808
+
+Original dataset columns
+
+11
+
+PM2.5 records used
+
+472
+
+Duplicate records identified
+
+0
+
+Missing values noted
+
+430 each in pollutant_min, pollutant_max, and pollutant_avg
+
+The analysis focuses on the PM2.5 subset. The dataset file is not included in this repository; place the CSV file on your computer and update its path in the Python script.
+
+Dataset fields used by the models:
 
 latitude
 
 longitude
 
-pollutant_id
-
 pollutant_min
 
 pollutant_max
 
-pollutant_avg
+pollutant_avg (regression target)
 
-Add the exact dataset source, download page, license, and attribution here before publishing the dataset. Do not upload the raw CSV unless its license and sharing terms permit redistribution.
+Please retain the original dataset attribution and follow its usage license or terms when using or sharing the data.
 
-Workflow
+⚙️ Workflow
 
-Load and inspect the dataset.
+Load the CSV dataset.
 
-Check missing values and duplicate records.
+Inspect the dataset shape, columns, missing values, and duplicates.
 
-Remove duplicate rows and convert numerical columns to numeric values.
-
-Filter PM2.5 observations and remove rows without pollutant_avg.
+Filter records where the pollutant is PM2.5.
 
 Perform exploratory data analysis (EDA).
 
-Train regression models.
+Prepare features and handle missing numerical values using median imputation.
 
-Create air-quality categories and train classification models.
+Scale regression features using MinMaxScaler.
 
-Evaluate and compare the models.
+Train and evaluate regression models.
 
-Exploratory Data Analysis
+Create PM2.5-based air-quality categories.
 
-The notebook/script produces the following visualizations:
+Train and evaluate classification models.
 
-PM2.5 concentration distribution
+Compare model performance.
 
-Top 10 cities by average PM2.5
+📈 Exploratory Data Analysis
 
-PM2.5 concentration boxplot
+The PM2.5 subset contains 472 records.
 
-Correlation heatmap
+PM2.5 category distribution
 
-Selected EDA Findings
+Category
 
-PM2.5 subset size: 472 records
+Number of records
 
-Mean PM2.5 average: 50.42
+Good
 
-Median PM2.5 average: 46
+134
 
-Minimum PM2.5 average: 2
+Satisfactory
 
-Maximum PM2.5 average: 195
+199
 
-Top cities by mean PM2.5 in this dataset include Gummidipoondi, Rajkot, Amritsar, Khanna, and Baddi.
+Moderate
 
-Machine Learning Models
+96
+
+Poor
+
+27
+
+Very Poor
+
+16
+
+Severe
+
+0
+
+Highest city-level average PM2.5 values
+
+City
+
+Average PM2.5
+
+Gummidipoondi
+
+195
+
+Rajkot
+
+193
+
+Amritsar
+
+181
+
+Khanna
+
+177
+
+Baddi
+
+174
+
+Chittorgarh
+
+156
+
+Mandi Gobindgarh
+
+153
+
+Jhalawar
+
+146
+
+Byrnihat
+
+124.5
+
+Sonipat
+
+124
+
+These are descriptive results from the dataset used in this project, not live air-quality readings.
+
+🤖 Machine-Learning Models
 
 Regression
 
-The target variable is pollutant_avg. The input features are:
-
-latitude
-
-longitude
-
-pollutant_min
-
-pollutant_max
-
-Models:
-
-Multiple Linear Regression
-
-Polynomial Regression (degree 2, using pollutant_max)
+The regression task estimates pollutant_avg.
 
 Model
-
-MSE
 
 RMSE
 
 MAE
 
-R² Score
+R²
 
 Multiple Linear Regression
-
-90.44
 
 9.51
 
 6.35
 
-0.8946
+0.895
 
-Polynomial Regression
-
-290.43
+Polynomial Regression (degree 2)
 
 17.04
 
 13.63
 
-0.6615
+0.662
 
-Multiple Linear Regression achieved the higher R² score on the selected test split.
+Best regression result: Multiple Linear Regression, with an R² score of approximately 0.895 on the test split.
 
 Classification
 
-PM2.5 observations are grouped using these project-defined intervals:
-
-PM2.5 interval
-
-Project category
-
-Up to 30
-
-Good
-
-30–60
-
-Satisfactory
-
-60–90
-
-Moderate
-
-90–120
-
-Poor
-
-120–250
-
-Very Poor
-
-Above 250
-
-Severe
-
-Models:
-
-Logistic Regression
-
-Decision Tree Classifier
-
-Support Vector Machine (linear kernel)
+The classification task predicts the air-quality category.
 
 Model
 
 Accuracy
 
+Macro F1
+
+Weighted F1
+
 Logistic Regression
 
 65.26%
+
+0.359
+
+0.595
 
 Decision Tree
 
 72.63%
 
-Support Vector Machine (SVM)
+0.547
+
+0.711
+
+Support Vector Machine (linear kernel)
 
 69.47%
 
-The Decision Tree Classifier achieved the highest accuracy among the three classification models on the selected test split.
+0.416
 
-Evaluation and Visualizations
+0.658
 
-The project includes:
+Best classification result: Decision Tree, with 72.63% accuracy and a weighted F1-score of 0.711.
 
-Regression metrics: MSE, RMSE, MAE, and R² score
+Results are based on the project's train-test split and may vary with changes to the dataset, package versions, or execution settings.
 
-Classification accuracy and classification reports
-
-Confusion matrices for classification models
-
-Actual-versus-predicted scatter plot
-
-Polynomial regression fit plot
-
-Decision Tree visualization
-
-Regression and classification model comparison charts
-
-Important Limitations
-
-The regression model estimates pollutant_avg using pollutant_min and pollutant_max, which are related summaries of the same pollution measurements. This is not a genuine future-time forecast.
-
-The available PM2.5 subset is relatively small.
-
-Some air-quality categories have few or no observations. In particular, the Severe category has no observations in this subset, so its performance cannot be meaningfully evaluated.
-
-Results are based on the project's train-test split and may vary with dataset or library versions.
-
-The project does not include time-series forecasting or weather-related input features.
-
-Technologies and Libraries
+🧰 Tools & Libraries
 
 Python
 
@@ -247,34 +266,11 @@ Seaborn
 
 Scikit-learn
 
-Project Files
-
-Suggested repository structure:
-
-PM25-Air-Pollution-Prediction-Using-Machine-Learning/
-│
-├── PM25_Simplified_Code.py
-├── air_pollution.csv             # Include only if redistribution is permitted
-├── requirements.txt
-├── README.md
-└── results/
-    ├── pm25_distribution.png
-    ├── top_10_cities.png
-    ├── correlation_heatmap.png
-    ├── regression_comparison.png
-    ├── classification_comparison.png
-    ├── logistic_confusion_matrix.png
-    ├── decision_tree_confusion_matrix.png
-    ├── svm_confusion_matrix.png
-    └── decision_tree.png
-
-Use the actual filenames of your saved images. Remove any entries that you do not upload.
-
-Installation and Usage
+🚀 Run the Project
 
 1. Clone the repository
 
-git clone https://github.com/YOUR-USERNAME/PM25-Air-Pollution-Prediction-Using-Machine-Learning.git
+git clone https://github.com/shingneshubham/PM25-Air-Pollution-Prediction-Using-Machine-Learning.git
 cd PM25-Air-Pollution-Prediction-Using-Machine-Learning
 
 2. Install dependencies
@@ -283,32 +279,51 @@ pip install -r requirements.txt
 
 3. Add the dataset
 
-Place air_pollution.csv in the project folder, or update the CSV path in PM25_Simplified_Code.py to match its location.
+Place air_pollution.csv in your preferred local folder.
 
-4. Run the project
+Open PM25_Simplified_Code.py and update the CSV path to match your computer. For example:
+
+data = pd.read_csv(r"C:\Users\YourName\Downloads\air_pollution.csv")
+
+Use the actual filename and location of your dataset.
+
+4. Run the script
 
 python PM25_Simplified_Code.py
 
-Future Improvements
+The script performs the analysis, trains the models, prints evaluation results, and displays the project visualizations.
 
-Add weather features such as temperature, humidity, and wind speed.
+⚠️ Limitations
 
-Use time-stamped observations for genuine forecasting.
+The PM2.5 subset contains 472 records, which is relatively small for building generalizable models.
 
-Evaluate models with cross-validation.
+The classification dataset is imbalanced; the Poor and Very Poor categories have fewer examples, and the Severe category has no examples.
 
-Address class imbalance and collect more examples for rare categories.
+The regression model uses pollutant_min and pollutant_max to estimate pollutant_avg. These are related summaries from the same measurement record.
 
-Test additional algorithms and compare their performance.
+This is not a future air-quality forecasting system. The project does not use time-series, weather, traffic, or emissions data to predict future PM2.5 levels.
 
-Author
+Evaluation is based on a single train-test split, so results may vary across different splits.
+
+🔭 Future Improvements
+
+Add time-series and weather features for forecasting.
+
+Use a larger dataset covering more cities and dates.
+
+Apply cross-validation and hyperparameter tuning.
+
+Address class imbalance and evaluate per-class performance.
+
+Compare additional machine-learning models.
+
+Build an interactive dashboard for exploring air-quality patterns.
+
+👨‍🎓 Author
 
 Shubham Shingne
 B.Tech – Computer Science and Engineering (Data Science)
-Lovely Professional University
 
-Acknowledgment
+🙏 Acknowledgment
 
-This project was completed as part of the INT234 Predictive Analytics coursework. Thanks to the faculty and learning resources that supported the project.
-
-If you use or extend this project, please verify the dataset source, license, and attribution requirements before redistributing the data.
+Developed as part of the INT234 – Predictive Analytics coursework.
